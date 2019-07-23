@@ -1,0 +1,22 @@
+   final ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Downloading...");
+        progressDialog.show();
+        
+        StorageReference storageRef = storage.getReference();
+        StorageReference pathReference = storageRef.child("SharedPrefs/"+ "MySharedPreferences.xml");
+
+        File localFile = new File("/data/data/com.example.myfirebaseauth2/shared_prefs/MySharedPreferences.xml");
+
+        pathReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                progressDialog.dismiss();
+                //onSuccess
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception exception) {
+                progressDialog.dismiss();
+                //onFailure
+            }
+        });
